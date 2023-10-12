@@ -22,7 +22,7 @@ public class Task1 {
     static Set<Computer> setCompList(Set<Computer> computers) {
         computers.add(new Computer("HP", 16, 2, "windows", "black"));
         computers.add(new Computer("Asus", 8, 2, "linux", "silver"));
-        computers.add(new Computer("HP", 8, 1, "windows", "black"));
+        computers.add(new Computer("Apple", 8, 1, "mac", "black"));
         computers.add(new Computer("Lenovo", 64, 2, "windows", "red"));
         computers.add(new Computer("Asus", 32, 2, "linux", "black"));
         computers.add(new Computer("Lenovo", 8, 3, "windows", "white"));
@@ -31,7 +31,7 @@ public class Task1 {
         computers.add(new Computer("HP", 8, 1, "windows", "black"));
         computers.add(new Computer("Asus", 16, 1, "linux", "silver"));
         computers.add(new Computer("HP", 8, 2, "windows", "white"));
-        computers.add(new Computer("Lenovo", 8, 1, "linux", "black"));
+        computers.add(new Computer("Apple", 8, 1, "mac", "pink"));
         computers.add(new Computer("Lenovo", 32, 3, "windows", "black"));
         computers.add(new Computer("HP", 16, 1, "linux", "silver"));
         computers.add(new Computer("Asus", 64, 1, "linux", "black"));
@@ -46,20 +46,20 @@ public class Task1 {
         System.out.println("3 - Объем ЖД");
         System.out.println("4 - Опреационная система");
         System.out.println("5 - Цвет");
-        System.out.println("Введите цифру или цифры через пробел, соответствующую необходимому критерию:");
+        System.out.println("Введите цифру или цифры через пробел, соответствующую необходимому критерию сортировки:");
         String[] input = (scanner.nextLine()).split(" ");
 
-        boolean compExist = true;
-        boolean correctInput = true;
+        boolean compExist = true; // проверка на соответствие существующим параметрам
+        boolean correctInput = true; //соответствует ли каким-нибудь кейсам
 
         for (int i = 0; i < input.length; i++) {
             System.out.println();
 
             switch (input[i]) {
                 case "1":
-                    System.out.println("Введите бренд: (HP, Asus, Lenovo)");
+                    System.out.println("Введите бренд: (HP, Asus, Lenovo, Apple)");
                     String temp1 = scanner.nextLine();
-                    if (Arrays.asList("HP", "Asus", "Lenovo").contains(temp1)) {
+                    if (Arrays.asList("HP", "Asus", "Lenovo", "Apple").contains(temp1)) {
                         compFiltr.setBrand(temp1);
                     } else {
                         compFiltr.setBrand(temp1);
@@ -90,9 +90,9 @@ public class Task1 {
                     break;
 
                 case "4":
-                    System.out.println("Введите опреационную систему: (windows, linux)");
+                    System.out.println("Введите опреационную систему: (windows, linux, mac)");
                     String temp4 = scanner.nextLine();
-                    if (Arrays.asList("windows", "linux").contains(temp4)) {
+                    if (Arrays.asList("windows", "linux", "mac").contains(temp4)) {
                         compFiltr.setOs(temp4);
                     } else {
                         compFiltr.setOs(temp4);
@@ -101,9 +101,9 @@ public class Task1 {
                     break;
 
                 case "5":
-                    System.out.println("Введите цвет: (black, silver, red, white)");
+                    System.out.println("Введите цвет: (black, silver, red, white, pink)");
                     String temp5 = scanner.nextLine();
-                    if (Arrays.asList("black", "silver", "red", "white").contains(temp5)) {
+                    if (Arrays.asList("black", "silver", "red", "white", "pink").contains(temp5)) {
                         compFiltr.setColor(temp5);
                     } else {
                         compFiltr.setColor(temp5);
@@ -112,9 +112,10 @@ public class Task1 {
                     break;
 
                 default:
-                    System.out.println("Вы ввели неверные цифры");
+                    System.out.println("А эта цифра неправильная...");
                     compExist = false;
                     correctInput = false;
+                    
 
             }
         }
@@ -125,14 +126,18 @@ public class Task1 {
             System.out.println(compFiltr.toString()); // вывести характеристики поиска
             System.out.println();
 
-            if (compExist == false) {
-                System.out.println("В нашей вселенной таких компьютеров не существует...");
-            } else {
-                System.out.println("Найдено.");
-                System.out.println("Отображение доступного каталога: ");
+            if (compExist) {
+                System.out.println("Компьютер с такими характеристиками может существовать. ");
+                System.out.println("Посмотрим, есть ли у нас такое в наличии:");
+                System.out.println();
                 compPrint(computers, compFiltr);
-
+            } else {
+                System.out.println("В нашей вселенной таких компьютеров не существует...");
+                System.out.println("Но когда-нибудь они могут появиться...");
             }
+        }else {
+            System.out.println("Одна из введенных цифр оказалась неправильной...");
+            System.out.println("К сожалению, ничем не могу помочь...");
         }
     }
 
@@ -154,7 +159,9 @@ public class Task1 {
             }
         }
         if (!found) {
-            System.out.println("Компьютеров с таким набором характеристик нет.");
+            System.out.println();
+            System.out.println("Хмм... Жаль, но компьютеров с таким набором характеристик в наличии нет.");
+            System.out.println("Но когда-нибудь они могут появиться...");
         }
     }
 }
